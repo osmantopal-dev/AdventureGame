@@ -1,11 +1,13 @@
 public abstract class Character {
+    private int ID;
     private String name;
     private int damage;
     private int health;
     private int money;
     
 
-    public Character(String name, int damage, int health, int money){
+    public Character(int ID, String name, int damage, int health, int money){
+        this.ID = ID;
         this.name = name;
         this.damage = damage;
         this.health = health;
@@ -42,6 +44,14 @@ public abstract class Character {
 
     public void setMoney(int money) {
         this.money = money;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
 }
