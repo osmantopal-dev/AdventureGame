@@ -47,6 +47,40 @@ public class Player {
                 scan.nextLine();
             }
         } 
+        sb.setLength(0);
+        System.out.println(sb.append("Your character is ").append(this.getCharacterName()).append("!"));
+    }
+
+    public void selectLoc(){
+        Location location = null;
+        System.out.println("1. Safe House");
+        System.out.println("2. Toolstore");
+        System.out.print("Please select a location: ");
+        boolean validInput = false;
+        while(!validInput){
+            try{
+                int locationNumber = scan.nextInt();
+                if(locationNumber != 1 && locationNumber != 2)
+                    throw new Exception("Please enter a valid number: ");
+                
+                switch(locationNumber) {
+                    case 1:
+                        location = new SafeHouse(this);
+                        break;
+                    case 2:
+                        location = new Toolstore(this);
+                        break;
+                    default:
+                        location = new SafeHouse(this);
+                }
+                validInput = true;
+    
+            }catch(Exception e){
+                System.out.print("Please enter a valid number: ");
+                scan.nextLine();
+            }
+        } 
+        location.onLocation();
     }
 
     private void initCharacter(Character character){

@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Game {
 
     private Scanner scan = new Scanner(System.in);
-    private StringBuilder sb = new StringBuilder();
+    // private StringBuilder sb = new StringBuilder();
 
     public void start(){
         
@@ -13,9 +13,7 @@ public class Game {
         String playerName = scan.nextLine();
         Player player = new Player(playerName);
         player.selectChar();
-        System.out.println(sb.append("Your character is ").append(player.getCharacterName()));
-        
-        
+        player.selectLoc();
 
     }
 }
