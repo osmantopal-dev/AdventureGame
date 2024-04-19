@@ -41,6 +41,7 @@ public class Toolstore extends NormalLocation {
                 scan.nextLine();
             }
         } 
+        selectWeapon();
         return true;
     }
 
@@ -48,11 +49,46 @@ public class Toolstore extends NormalLocation {
         System.out.println();
         System.out.println("Weapons");
         for(Weapon weapon: Weapon.weapons()){
-            System.out.println(sb.append(weapon.getName())
+            System.out.println(sb.append(weapon.getID()).append(". ").append(weapon.getName())
             .append("\t").append("Damage: ").append(weapon.getDamage())
             .append("\t").append("Price: ").append(weapon.getPrice()));
             sb.setLength(0);
         }
+        System.out.println("4. Back");
+    }
+
+    public void selectWeapon(){
+        System.out.println();
+        System.out.print("Your choice: ");
+        System.out.println();
+        boolean validInput = false;
+        sb.setLength(0);
+        while(!validInput){
+            try{
+                int menuNumber = Location.scan.nextInt();
+                if(menuNumber < 1 || menuNumber > Weapon.weapons().length)
+                    throw new Exception("Please enter a valid number: ");
+                switch(menuNumber) {
+                    case 1:
+                        System.out.println(sb.append("You bought ").append(Weapon.weapons()[0].getName()).append("!"));
+                        break;
+                    case 2:
+                        System.out.println(sb.append("You bought ").append(Weapon.weapons()[1].getName()).append("!"));
+                        break;
+                    case 3:
+                        System.out.println(sb.append("You bought ").append(Weapon.weapons()[2].getName()).append("!"));
+                        break;
+                    case 4:
+                        break;
+                }
+
+                validInput = true;
+            }catch(Exception e){
+                System.out.print("Please enter a valid number: ");
+                scan.nextLine();
+            }
+        } 
+
     }
 
     public void showArmors(){
