@@ -9,9 +9,11 @@ public class Player {
     private String characterName;
     private Scanner scan = new Scanner(System.in);
     private StringBuilder sb = new StringBuilder();
+    private Inventory inventory;
     
     public Player(String name){
         this.name = name;
+        this.inventory = new Inventory();
     }
 
     public void selectChar(){
@@ -49,8 +51,6 @@ public class Player {
         }
         sb.setLength(0);
         System.out.println();
-        System.out.println(sb.append("Your character is ").append(this.getCharacterName()).append("!"));
-        System.out.println();
     }
 
     private void initCharacter(Character character){
@@ -60,8 +60,18 @@ public class Player {
         this.setCharacterName(character.getName());
     }
 
+    public void playerInfo(){
+        sb.setLength(0);
+        System.out.println();
+        System.out.println(sb.append("Your character: ").append(this.getCharacterName())
+        .append("\n").append("Your damage: ").append(this.getDamage())
+        .append("\n").append("Your money: ").append(this.getMoney())
+        .append("\n").append("Your health: ").append(this.getHealth()));
+        System.out.println();
+    }
+
     public int getDamage(){
-        return damage;
+        return damage + this.getInventory().getWeapon().getDamage();
     }
 
     public void setDamage(int damage){
@@ -76,7 +86,7 @@ public class Player {
         this.health = health;
     }
 
-    public int getmoney(){
+    public int getMoney(){
         return money;
     }
 
@@ -98,6 +108,14 @@ public class Player {
 
     public void setCharacterName(String characterName){
         this.characterName = characterName;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 
 }

@@ -15,6 +15,7 @@ public class Game {
         player.selectChar();
         Location location = null;
         while(true){
+            player.playerInfo();
             System.out.println("1. Safe House");
             System.out.println("2. Toolstore");
             System.out.print("Please select a location: ");
