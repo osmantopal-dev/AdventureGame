@@ -5,6 +5,7 @@ public class Inventory {
 
     public Inventory(){
         this.weapon = new Weapon("Hand", 0, 0, 0);
+        this.armor = new Armor(0, "None", 0, 0);
     }
 
     public Weapon getWeapon() {

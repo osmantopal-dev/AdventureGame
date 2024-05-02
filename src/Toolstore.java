@@ -6,47 +6,54 @@ public class Toolstore extends NormalLocation {
         super(player, "Toolstore");
     }
 
+    private void showMenu(){
+        boolean show = true;
+        while(show){
+            sb.setLength(0);
+            System.out.println(sb.append("Your money: ").append(this.getPlayer().getMoney()));
+            sb.setLength(0);
+            System.out.println();
+            System.out.println("1. Weapons");
+            System.out.println("2. Armors");
+            System.out.println("3. Quit");
+            System.out.print("Your choice: ");
+            boolean validInput = false;
+            while(!validInput){
+                try{
+                    int menuNumber = Location.scan.nextInt();
+                    if(menuNumber != 1 && menuNumber != 2 && menuNumber != 3)
+                        throw new Exception("Please enter a valid number: ");
+                    switch(menuNumber) {
+                        case 1:
+                            showWeapons();
+                            selectWeapon();
+                            break;
+                        case 2:
+                            showArmors();
+                            selectArmor();
+                            break;
+                        case 3:
+                            System.out.println();
+                            System.out.println("See you again!");
+                            System.out.println();
+                            show = false;
+                    }
+                    validInput = true;
+        
+                }catch(Exception e){
+                    System.out.print("Please enter a valid number: ");
+                    scan.nextLine();
+                }
+            } 
+        }
+    }
+
     @Override
     public boolean onLocation(){
         System.out.println();
         System.out.println("########## Welcome to Toolstore! ##########");
         System.out.println();
-        sb.setLength(0);
-        System.out.println(sb.append("Your money: ").append(this.getPlayer().getMoney()));
-        sb.setLength(0);
-        System.out.println();
-        System.out.println("1. Weapons");
-        System.out.println("2. Armors");
-        System.out.println("3. Quit");
-        System.out.print("Your choice: ");
-        boolean validInput = false;
-        while(!validInput){
-            try{
-                int menuNumber = Location.scan.nextInt();
-                if(menuNumber != 1 && menuNumber != 2 && menuNumber != 3)
-                    throw new Exception("Please enter a valid number: ");
-                switch(menuNumber) {
-                    case 1:
-                        showWeapons();
-                        selectWeapon();
-                        break;
-                    case 2:
-                        showArmors();
-                        selectArmor();
-                        break;
-                    case 3:
-                        System.out.println();
-                        System.out.println("See you again!");
-                        System.out.println();
-                        return true;
-                }
-                validInput = true;
-    
-            }catch(Exception e){
-                System.out.print("Please enter a valid number: ");
-                scan.nextLine();
-            }
-        } 
+        showMenu();
         
         return true;
     }
@@ -72,24 +79,33 @@ public class Toolstore extends NormalLocation {
         while(!validInput){
             try{
                 weaponID = Location.scan.nextInt();
-                validInput = true;
+                if(weaponID > 0 && weaponID < 4){
+                    Weapon selectedWeapon = Weapon.getWeaponObjByID(weaponID);
+                    sb.setLength(0);
+                    if(selectedWeapon != null){
+                        if(selectedWeapon.getPrice() > this.getPlayer().getMoney()){
+                            System.out.println("Not enough money!");
+                        }else{
+                            System.out.println(sb.append("You bought a/an ").append(selectedWeapon.getName()));
+                            int balance = this.getPlayer().getMoney() - selectedWeapon.getPrice();
+                            this.getPlayer().setMoney(balance);
+                            this.getPlayer().getInventory().setWeapon(selectedWeapon);
+                        }
+                        validInput = true;
+                    }
+                }
+                else if(weaponID == 4){
+                    validInput = true;
+                }else{
+                    throw new Exception("Please enter a valid number: ");
+                }
+                
             }catch(Exception e){
                 System.out.print("Please enter a valid number: ");
                 scan.nextLine();
             }
         }
-        Weapon selectedWeapon = Weapon.getWeaponObjByID(weaponID);
-        sb.setLength(0);
-        if(selectedWeapon != null){
-            if(selectedWeapon.getPrice() > this.getPlayer().getMoney()){
-                System.out.println("Not enough money!");
-            }else{
-                System.out.println(sb.append("You bought a/an ").append(selectedWeapon.getName()));
-                int balance = this.getPlayer().getMoney() - selectedWeapon.getPrice();
-                this.getPlayer().setMoney(balance);
-                this.getPlayer().getInventory().setWeapon(selectedWeapon);
-            }
-        }
+        
     }
 
     public void showArmors(){
@@ -113,24 +129,33 @@ public class Toolstore extends NormalLocation {
         while(!validInput){
             try{
                 armorID = Location.scan.nextInt();
-                validInput = true;
+                if(armorID > 0 && armorID < 4){
+                    Armor selectedArmor = Armor.getArmorObjByID(armorID);
+                    sb.setLength(0);
+                    if(selectedArmor != null){
+                        if(selectedArmor.getPrice() > this.getPlayer().getMoney()){
+                            System.out.println("Not enough money!");
+                        }else{
+                            System.out.println(sb.append("You bought a/an ").append(selectedArmor.getName()));
+                            int balance = this.getPlayer().getMoney() - selectedArmor.getPrice();
+                            this.getPlayer().setMoney(balance);
+                            this.getPlayer().getInventory().setArmor(selectedArmor);;
+                        }
+                        validInput = true;
+                    }
+                }
+                else if(armorID == 4){
+                    validInput = true;
+                }else{
+                    throw new Exception("Please enter a valid number: ");
+                }
+                
             }catch(Exception e){
                 System.out.print("Please enter a valid number: ");
                 scan.nextLine();
             }
         }
-        Armor selectedArmor = Armor.getArmorObjByID(armorID);
-        sb.setLength(0);
-        if(selectedArmor != null){
-            if(selectedArmor.getPrice() > this.getPlayer().getMoney()){
-                System.out.println("Not enough money!");
-            }else{
-                System.out.println(sb.append("You bought a/an ").append(selectedArmor.getName()));
-                int balance = this.getPlayer().getMoney() - selectedArmor.getPrice();
-                this.getPlayer().setMoney(balance);
-                this.getPlayer().getInventory().setArmor(selectedArmor);;
-            }
-        }
+        
 
     }
     

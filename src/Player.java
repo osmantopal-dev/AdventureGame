@@ -66,7 +66,9 @@ public class Player {
         System.out.println(sb.append("Your character: ").append(this.getCharacterName())
         .append("\n").append("Your damage: ").append(this.getDamage())
         .append("\n").append("Your money: ").append(this.getMoney())
-        .append("\n").append("Your health: ").append(this.getHealth()));
+        .append("\n").append("Your health: ").append(this.getHealth())
+        .append("\n").append("Your armor: ").append(this.getInventory().getArmor().getName())
+        .append("\n").append("Your weapon: ").append(this.getInventory().getWeapon().getName()));
         System.out.println();
     }
 

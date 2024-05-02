@@ -21,9 +21,8 @@ public class Armor {
 
     public static Armor getArmorObjByID(int ID){
         for (Armor armor : armors()) {
-            if(armor.getID() == ID){
+            if(armor.getID() == ID)
                 return armor;
-            }
         }
         return null;
     }
