@@ -18,12 +18,15 @@ public class Game {
             player.playerInfo();
             System.out.println("1. Safe House");
             System.out.println("2. Toolstore");
+            System.out.println("3. Cave");
+            System.out.println("4. Forest");
+            System.out.println("5. River");
             System.out.print("Please select a location: ");
             boolean validInput = false;
             while(!validInput){
                 try{
                     int locationNumber = scan.nextInt();
-                    if(locationNumber != 1 && locationNumber != 2)
+                    if(locationNumber != 1 && locationNumber != 2 && locationNumber != 3 && locationNumber != 4 && locationNumber != 5)
                         throw new Exception("Please enter a valid number: ");
                     
                     switch(locationNumber) {
@@ -32,6 +35,15 @@ public class Game {
                             break;
                         case 2:
                             location = new Toolstore(player);
+                            break;
+                        case 3:
+                            location = new Cave(player);
+                            break;
+                        case 4:
+                            location = new Forest(player);
+                            break;
+                        case 5:
+                            location = new River(player);
                             break;
                         default:
                             location = new SafeHouse(player);

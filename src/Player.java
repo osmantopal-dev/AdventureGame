@@ -63,12 +63,12 @@ public class Player {
     public void playerInfo(){
         sb.setLength(0);
         System.out.println();
-        System.out.println(sb.append("Your character: ").append(this.getCharacterName())
-        .append("\n").append("Your damage: ").append(this.getDamage())
-        .append("\n").append("Your money: ").append(this.getMoney())
-        .append("\n").append("Your health: ").append(this.getHealth())
-        .append("\n").append("Your armor: ").append(this.getInventory().getArmor().getName())
-        .append("\n").append("Your weapon: ").append(this.getInventory().getWeapon().getName()));
+        System.out.println(sb.append("Your character: ").append("<").append(this.getCharacterName()).append("   ")
+        .append("Damage: ").append(this.getDamage()).append(" ")
+        .append("Money: ").append(this.getMoney()).append(" ")
+        .append("Health: ").append(this.getHealth()).append(" ")
+        .append("Armor: ").append(this.getInventory().getArmor().getName()).append(" ")
+        .append("Weapon: ").append(this.getInventory().getWeapon().getName()).append(">"));
         System.out.println();
     }
 
