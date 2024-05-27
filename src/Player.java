@@ -81,7 +81,7 @@ public class Player {
     }
     
     public int getHealth(){
-        return health;
+        return health + getInventory().getArmor().getDamageBlocked();
     }
 
     public void setHealth(int health){
