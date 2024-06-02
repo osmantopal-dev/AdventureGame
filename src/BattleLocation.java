@@ -91,6 +91,8 @@ public abstract class BattleLocation extends Location{
                                 if(this.getEnemy().getHealth() != 0){
                                     this.getPlayer().setHealth(this.getPlayer().getHealth() - damageTaken);
                                 }else{
+                                    sb.setLength(0); 
+                                    System.out.println(sb.append(this.getEnemy().getMoneyAward()).append(" money earned!"));
                                     this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getEnemy().getMoneyAward());
                                     sb.setLength(0); 
                                     System.out.println(sb.append("1 ").append(this.getEnemy().getName()).append(" is dead!"));
