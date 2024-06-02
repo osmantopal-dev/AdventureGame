@@ -14,7 +14,8 @@ public class Game {
         Player player = new Player(playerName);
         player.selectChar();
         Location location = null;
-        while(true){
+        boolean gameCheck = true;
+        while(gameCheck){
             player.playerInfo();
             System.out.println("1. Safe House");
             System.out.println("2. Toolstore");
@@ -58,6 +59,7 @@ public class Game {
             if(!location.onLocation()){
                 System.out.println("You are died!");
                 System.out.println("Game over!");
+                gameCheck = false;
             }
 
         }

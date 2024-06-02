@@ -10,6 +10,7 @@ public class Player {
     private Scanner scan = new Scanner(System.in);
     private StringBuilder sb = new StringBuilder();
     private Inventory inventory;
+    private int baseHealth;
     
     public Player(String name){
         this.name = name;
@@ -58,6 +59,7 @@ public class Player {
         this.setHealth(character.getHealth());
         this.setMoney(character.getMoney());
         this.setCharacterName(character.getName());
+        this.setBaseHealth(character.getHealth());
     }
 
     public void playerInfo(){
@@ -81,7 +83,7 @@ public class Player {
     }
     
     public int getHealth(){
-        return health + getInventory().getArmor().getDamageBlocked();
+        return health;
     }
 
     public void setHealth(int health){
@@ -118,6 +120,14 @@ public class Player {
 
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
+    }
+
+    public int getBaseHealth() {
+        return baseHealth;
+    }
+
+    public void setBaseHealth(int baseHealth) {
+        this.baseHealth = baseHealth;
     }
 
 }
