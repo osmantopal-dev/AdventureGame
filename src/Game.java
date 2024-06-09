@@ -61,6 +61,10 @@ public class Game {
                 System.out.println("Game over!");
                 gameCheck = false;
             }
+            else if(location.getPlayer().getInventory().getAwardEarned().size() == 3){
+                System.out.println("Congrulatonis! You finished the game.");
+                gameCheck = false;
+            }
 
         }
         

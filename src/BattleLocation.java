@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Random;
 
 public abstract class BattleLocation extends Location{
@@ -39,7 +40,14 @@ public abstract class BattleLocation extends Location{
                     switch(selection) {
                         case 1:
                             sb.setLength(0);
-                            combat(enemyNumber);
+                            if(combat(enemyNumber)){
+                                sb.setLength(0);
+                                System.out.println(sb.append("You cleared a ").append(this.getName()).append("!").append("\n")
+                                .append("Your award is ").append(this.getAward()));
+                                levelCleared();
+                            }else{
+                                return false;
+                            }
                             break;
                         case 2:
                             break;
@@ -51,26 +59,21 @@ public abstract class BattleLocation extends Location{
                     scan.nextLine();
                 }
             }
-            if(combat(enemyNumber)){
-                sb.setLength(0);
-                System.out.println(sb.append("You cleared a ").append(this.getName()).append("!").append("\n").append("Your award is ").append("yarrak"));
-            }else{
-                return false;
-            }
+            
         return true;
     }
 
     public boolean combat(int enemyNumber){
-        boolean escapeCheck = true;
+        boolean escapeCheck = false;
         int i = 0;
-        while(i < enemyNumber && escapeCheck){
+        while(i < enemyNumber && !escapeCheck){
             if(this.getPlayer().getHealth() == 0){
                 return false;
             }
             this.getEnemy().setHealth(this.getEnemy().getInitHealth());
             sb.setLength(0);
             System.out.println(sb.append(this.getEnemy().getName()).append(" is coming towards you!"));
-            while(this.getPlayer().getHealth() > 0 && this.getEnemy().getHealth() > 0 && escapeCheck){
+            while(this.getPlayer().getHealth() > 0 && this.getEnemy().getHealth() > 0 && !escapeCheck){
                 System.out.println();
                 System.out.println("1. Hit");
                 System.out.println("2. Escape");
@@ -94,13 +97,14 @@ public abstract class BattleLocation extends Location{
                                     sb.setLength(0); 
                                     System.out.println(sb.append(this.getEnemy().getMoneyAward()).append(" money earned!"));
                                     this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getEnemy().getMoneyAward());
+
                                     sb.setLength(0); 
                                     System.out.println(sb.append("1 ").append(this.getEnemy().getName()).append(" is dead!"));
                                 }
                                 break;
                             case 2:
-                                escapeCheck = false;
-                                return false;
+                                escapeCheck = true;
+                                break;
                             default:
                         }
                         validInput = true;
@@ -131,7 +135,20 @@ public abstract class BattleLocation extends Location{
                             .append("Enemy Damage: ").append(this.getEnemy().getDamage()));
     }
     
-    
+    public void levelCleared(){
+        List<String> awardList = this.getPlayer().getInventory().getAwardEarned();
+        boolean included = false;
+        if(awardList.isEmpty()){
+            awardList.add(this.getAward());
+        }else{
+            for (String award : awardList) {
+                if(award.equals(this.getAward()))
+                    included = true;
+            }
+            if(!included)
+                awardList.add(this.getAward());
+        }
+    }
 
     public int randomEnemyNumber(int maxEnemyNumber){
         Random r = new Random();
